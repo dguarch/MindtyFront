@@ -22,7 +22,9 @@ import { UsuariodetalleComponent } from './usuario/usuariodetalle/usuariodetalle
 import { LoginComponent } from './login/login.component';
 import {routingProv} from './routing';
 import { ModulosService } from './services/modulos.service';
-import { AlumnoService } from './services/alumno.service';
+
+import { UserserviceService } from './services/userservice.service';
+
 
 @NgModule({
   declarations: [
@@ -43,7 +45,8 @@ import { AlumnoService } from './services/alumno.service';
     UsuarionewComponent,
     UsuariodetalleComponent,
     LoginComponent,
-    AlumnoService
+    
+    
   ],
   imports: [
     BrowserModule,
@@ -52,7 +55,9 @@ import { AlumnoService } from './services/alumno.service';
     HttpClientModule
   ],
   providers: [
-    ModulosService
+    ModulosService,
+    UserserviceService,
+    
   ],
   bootstrap: [AppComponent]
 })

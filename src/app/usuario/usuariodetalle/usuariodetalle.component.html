@@ -1,3 +1,13 @@
-<p>
-  usuariodetalle works!
-</p>
+<div>
+  <h1>Aqui se puede actualizar un usuario</h1>
+  <div  *ngIf="unUsuario">
+      <h3>Detalle de usuario</h3>
+      <p>Id: {{unUsuario.idu}}</p>
+      <p>Nombre: {{unUsuario.nombreUsuario}}</p>
+      <p>Email: {{unUsuario.email}}</p>
+      <p>Telefono: {{unUsuario.telefono}}</p>
+      <p>Tipo: {{unUsuario.tipo}}</p>
+      <p>  
+        <a  [routerLink]="['/usuarios/new']">Modificar:</a>
+      </p>
+  </div>
