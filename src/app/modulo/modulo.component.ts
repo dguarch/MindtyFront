@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ModulosService } from '../services/modulos.service';
+import { Modulo } from '../modelos/modulo';
 
 @Component({
   selector: 'app-modulo',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ModuloComponent implements OnInit {
 
-  constructor() { }
+  modulos:Modulo[];
+
+  constructor(private _ModulosService:ModulosService) { }
 
   ngOnInit() {
+
+    this._ModulosService.getTareasFromApi().subscribe(modulosLeidos=>{
+      this.modulos=modulosLeidos;
+    });
   }
 
 }
