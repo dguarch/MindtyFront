@@ -17,6 +17,7 @@ export class ModuloComponent implements OnInit {
 
     this._ModulosService.getTareasFromApi().subscribe(modulosLeidos=>{
       this.modulos=modulosLeidos;
+      console.log(this.modulos)
     });
   }
 
