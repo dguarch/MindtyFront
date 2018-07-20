@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModulosService } from '../services/modulos.service';
 import { Modulo } from '../modelos/modulo';
+import { ActivatedRoute } from '../../../node_modules/@angular/router';
 
 @Component({
   selector: 'app-modulo',
@@ -9,15 +10,27 @@ import { Modulo } from '../modelos/modulo';
 })
 export class ModuloComponent implements OnInit {
 
-  modulos:Modulo[];
+  modulos: Modulo[];
+  idCurso: number;
 
-  constructor(private _ModulosService:ModulosService) { }
+  constructor(private _ModulosService: ModulosService, private _route: ActivatedRoute) { }
 
   ngOnInit() {
 
-    this._ModulosService.getTareasFromApi().subscribe(modulosLeidos=>{
-      this.modulos=modulosLeidos;
-    });
-  }
+
+
+    this._route.params.subscribe(receivedParams => {
+      this.idCurso = receivedParams['idc'];
+      
+      this._ModulosService.getModulosFromApi(this.idCurso).subscribe(modulosLeidos => {
+        this.modulos = modulosLeidos;
+        console.log(this.modulos)
+      })
+    })
+
+
+      
+    }
 
 }
+

@@ -14,20 +14,20 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ModulosService {
   private _modulosCargados:Modulo [];
-  private _apiModulos:string='http://localhost:8080/mindtyapirest/api/cursos/1/modulos';
+  private _apiModulos:string='http://localhost:9090/mindtyapirest/api/cursos/';
   private _ModulosObs:Observable<Modulo[]>;
 
 
   constructor(private _httpClient:HttpClient) { }
 
-  getTareasFromApi(): Observable<Modulo[]> {
+  getModulosFromApi(idCurso:number): Observable<Modulo[]> {
 
   if(this._modulosCargados){
     this._ModulosObs=of(this._modulosCargados);
   }else if(this._ModulosObs){
     
   }else{
-    this._ModulosObs = this._httpClient.get<Modulo[]>(this._apiModulos)
+    this._ModulosObs = this._httpClient.get<Modulo[]>(this._apiModulos+ idCurso + "/modulos")
     .pipe(
       tap(
         data=>{
