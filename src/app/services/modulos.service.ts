@@ -14,7 +14,11 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ModulosService {
   private _modulosCargados:Modulo [];
+<<<<<<< HEAD
   private _apiModulos:string='http://localhost:9090/mindtyapirest/api/cursos/';
+=======
+  private _apiModulos:string='http://localhost:9090/mindtyapirest/api/cursos/2/modulos';
+>>>>>>> d8d4f3f0802e075e2870c53c938cb074cb9f443a
   private _ModulosObs:Observable<Modulo[]>;
 
 

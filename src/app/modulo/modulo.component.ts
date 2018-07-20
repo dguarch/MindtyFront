@@ -17,6 +17,7 @@ export class ModuloComponent implements OnInit {
 
   ngOnInit() {
 
+<<<<<<< HEAD
 
 
     this._route.params.subscribe(receivedParams => {
@@ -31,6 +32,13 @@ export class ModuloComponent implements OnInit {
 
       
     }
+=======
+    this._ModulosService.getTareasFromApi().subscribe(modulosLeidos=>{
+      this.modulos=modulosLeidos;
+      console.log(this.modulos)
+    });
+  }
+>>>>>>> d8d4f3f0802e075e2870c53c938cb074cb9f443a
 
 }
 
