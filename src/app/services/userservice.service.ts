@@ -80,7 +80,7 @@ deleteUsuarioToApi (idu: number): Observable<{}> {
   // return this._httpClient.delete(url, httpOptions)
      
  
-  return this._httpClient.post<number>(this._apiUsuarios, httpOptions)
+  return this._httpClient.delete<number>(this._apiUsuarios, httpOptions)
       .pipe(
         tap(
           data => {  
