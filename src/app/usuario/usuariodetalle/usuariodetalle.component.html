@@ -9,5 +9,6 @@
       <p>Tipo: {{unUsuario.tipo}}</p>
       <p>  
         <a  [routerLink]="['/usuarios/new']">Modificar:</a>
+        <button class="delete" title="delete unUsuario"(click)="delete(unUsuario)">Eliminar</button>
       </p>
   </div>

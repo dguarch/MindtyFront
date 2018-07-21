@@ -7,9 +7,13 @@ import { Observable } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 
+import { ErrorHandler} from '@angular/core';
+
+
 
 @Injectable()
 export class UserserviceService {
+  private http: HttpClient;
   private _usuariosStore: Usuario[];
   private _apiUsuarios: string = 'http://localhost:8080/mindtyapirest/api/usuarios';
   private _usuariosObs: Observable<Usuario[]>;
@@ -42,14 +46,7 @@ export class UserserviceService {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
-        // 'idu': nuevoUser.idu,
-        // 'nombreUsuario': nuevoUser.nombreUsuario,
-        // 'password': nuevoUser.password,
-        // 'email': nuevoUser.email,
-        // 'telefono': nuevoUser.telefono,
-        // 'tipo': nuevoUser.tipo
-
-      })
+           })
     };
 
     return this._httpClient.post<number>(this._apiUsuarios, nuevoUser, httpOptions)
@@ -64,11 +61,43 @@ export class UserserviceService {
       );
   }
  
+  
+/** DELETE: delete the hero from the server */
+
+    
+deleteUsuarioToApi (idu: number): Observable<{}> {
+  console.log(idu,"el idu, en  delete -userservice- entrando")
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+         })
+  };
+      console.log(idu,"el idu, en  delete -userservice- cabecera generada")
+  const url = `${this._apiUsuarios}/${idu}`; // DELETE api/usuario/x
+  
+  console.log(url, "la url para eliminar y pasamos a -component-  ");
+  
+  // return this._httpClient.delete(url, httpOptions)
+     
+ 
+  return this._httpClient.post<number>(this._apiUsuarios, httpOptions)
+      .pipe(
+        tap(
+          data => {  
+            // this._usuariosStore.push(url);
+          },
+          error => console.log('error:', error)
+        )
+      );  
+}
+
+
+
   getUserById(idu: number): Usuario {
     return this._usuariosStore.find((aU: Usuario) => (aU.idu == idu));
   }
 
 
-
-  
+ 
+    
 }
