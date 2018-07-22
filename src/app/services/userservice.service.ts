@@ -7,10 +7,14 @@ import { Observable } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 
-import { ErrorHandler} from '@angular/core';
+import { ErrorHandler } from '@angular/core';
 
 
-
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json'
+  })
+};
 @Injectable()
 export class UserserviceService {
   private http: HttpClient;
@@ -21,6 +25,7 @@ export class UserserviceService {
   constructor(private _httpClient: HttpClient) { }
 
   getUsersFromApi(): Observable<Usuario[]> {
+    
 
     if (this._usuariosStore) {
       this._usuariosObs = of(this._usuariosStore);
@@ -33,20 +38,22 @@ export class UserserviceService {
             data => {
               this._usuariosStore = data;
               localStorage.setItem('proyectos', JSON.stringify(this._usuariosStore));
+              
             },
             error => console.log('error:', error)
           )
         );
     }
-  
+
     return this._usuariosObs;
+    
   }
 
   addUsuarioToApi(nuevoUser: Usuario): Observable<number> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
-           })
+      })
     };
 
     return this._httpClient.post<number>(this._apiUsuarios, nuevoUser, httpOptions)
@@ -60,36 +67,36 @@ export class UserserviceService {
         )
       );
   }
- 
-  
-/** DELETE: delete the hero from the server */
 
-    
-deleteUsuarioToApi (idu: number): Observable<{}> {
-  console.log(idu,"el idu, en  delete -userservice- entrando")
-  const httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-         })
-  };
-      console.log(idu,"el idu, en  delete -userservice- cabecera generada")
-  const url = `${this._apiUsuarios}/${idu}`; // DELETE api/usuario/x
-  
-  console.log(url, "la url para eliminar y pasamos a -component-  ");
-  
-  // return this._httpClient.delete(url, httpOptions)
-     
- 
-  return this._httpClient.delete<number>(this._apiUsuarios, httpOptions)
+
+  /** DELETE: delete the hero from the server */
+
+
+  deleteUsuarioToApi(idu: number): Observable<{}> {
+    console.log(idu, "el idu, en  delete -userservice- entrando")
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    console.log(idu, "el idu, en  delete -userservice- cabecera generada")
+    const url = `${this._apiUsuarios}/${idu}`; // DELETE api/usuario/x
+
+    console.log(url, "la url para eliminar y pasamos a -component-  ");
+
+    // return this._httpClient.delete(url, httpOptions)
+
+
+    return this._httpClient.delete<number>(this._apiUsuarios, httpOptions)
       .pipe(
         tap(
-          data => {  
+          data => {
             // this._usuariosStore.push(url);
           },
           error => console.log('error:', error)
         )
-      );  
-}
+      );
+  }
 
 
 
@@ -97,7 +104,70 @@ deleteUsuarioToApi (idu: number): Observable<{}> {
     return this._usuariosStore.find((aU: Usuario) => (aU.idu == idu));
   }
 
-
  
+  updateUsuario(usuario: Usuario): Observable<Usuario> { //no se si sera number //
+    httpOptions.headers =
+      httpOptions.headers.set('Authorization', 'my-new-auth-token');
+      console.log('cabecera generada, usuario=', usuario.idu,usuario.nombreUsuario,usuario.email,usuario.password,usuario.telefono,usuario.tipo," objeto ===",Usuario)
+    // const httpOptions = {
+    //   headers: new HttpHeaders({
+    //     'Content-Type': 'application/json'
+    //  })
+    return this.http.put<Usuario>(this._apiUsuarios, usuario, httpOptions)
+      .pipe(
+        tap(
+          data => {
+            // usuario.idu = data;
+            // this._usuariosStore.push(usuario);
+          },
+          error => console.log('error:', error)
+        )
+      );
+  }
+
+  updateUsuarioDos(usuarioEditado: Usuario): Observable<Usuario> {
+    console.log(usuarioEditado, "el usuario, en  put dos------------------------------------------- -userservice- entrando",)
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+        
+      })
+      
+    };
+    // console.log(idu, "el idu, en  delete -userservice- cabecera generada")
+    // // const url = `${this._apiUsuarios}/${idu}`; // DELETE api/usuario/x
+
+    // console.log(url, "la url para eliminar y pasamos a -component-  ");
+
+    // return this._httpClient.delete(url, httpOptions)
+    return this._httpClient.put<Usuario>(this._apiUsuarios,usuarioEditado, httpOptions)
     
+      .pipe(
+        tap(
+          data => {
+            // usuarioEditado.idu = data;
+            this._usuariosStore.push(usuarioEditado);
+          },
+          error => console.log('error:', error,"siiii un errroooorrrr")
+        )
+      );
+  }
 }
+
+
+
+
+  //  return this._httpClient.put<Usuario>(this._apiUsuarios, usuario)
+  //   .pipe(
+  //     tap(
+  //       data => {  
+  //         // this._usuariosStore.push(url);
+  //       },
+  //       error => console.log('error:', usuario)
+  //     )
+  //   );
+  //   return 
+
+
+
+

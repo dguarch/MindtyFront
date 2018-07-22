@@ -4,6 +4,8 @@ import { Usuario } from '../../modelos/usuario';
 import { ActivatedRoute } from '@angular/router';
 import { Action } from 'rxjs/internal/scheduler/Action';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-usuariodetalle',
@@ -12,23 +14,42 @@ import { Observable } from 'rxjs';
 })
 export class UsuariodetalleComponent implements OnInit {
   unUsuario: Usuario;
-  idUsuario:number;
+  idUsuario: number;
   usuario: Usuario;
-  usuarios: Usuario[]; 
+  usuarios: Usuario[];
+  usuariosD: Usuario;
+  editUsuario: Usuario;
+  prue: Usuario[];
+
+  modificandoUsuario: Usuario = new Usuario(0, '', '', '', '', '');
+
+
 
 
   private _apiUsuarios: string = 'http://localhost:8080/mindtyapirest/api/usuarios';
   private _usuariosObs: Observable<Usuario>;
 
-  constructor( private _usersService:UserserviceService,private _route:ActivatedRoute) { }
- 
-  
+  constructor(private _usersService: UserserviceService, private _route: ActivatedRoute, private _routerDos: Router) { }
+
+
   ngOnInit() {
-    this._route.params.subscribe(receivedParams=>{
-      this.idUsuario=receivedParams['idu'];
-      this.unUsuario=this._usersService.getUserById(this.idUsuario);
+    this._route.params.subscribe(receivedParams => {
+      this.idUsuario = receivedParams['idu'];
+      this.unUsuario = this._usersService.getUserById(this.idUsuario);
+      console.log(this.unUsuario, "en get");
+      this.editUsuario = this.unUsuario;
+      console.log(this.editUsuario);
+
     })
   }
+  // valorAPrue(){
+  //   return this.prue=this.unUsuario;
+  // }
+
+  // getHeroes(): void {
+  //   this._usersService.getUserById(idu)
+  //     .subscribe(usuarios => this.usuarios = usuarios);
+  // }
   delete(usuario: Usuario): void {
 
     console.log("entrando en eliminando usuario, -usuariodetalle.component-");
@@ -38,13 +59,58 @@ export class UsuariodetalleComponent implements OnInit {
 
     // this.usuarios = this.usuarios.filter(h => h !== usuario);
     this._usersService.deleteUsuarioToApi(usuario.idu).subscribe();
+    if (usuario.idu == null) {
+      this._routerDos.navigate(['/usuarios']);
+    } else {
+      console.log("Error!");
+
+    }
 
     console.log("eliminando usuario despues de pasar por -service- estamos otra vez en -usuariodetalle.component-");
     console.log(usuario, "el usaurio");
     console.log(this.usuarios, "el usaurios, un array");
     console.log(usuario.idu, "el idu del usuario");
-   
+
   }
+  onSubmit() { //es el put 
+
+    if (this.editUsuario) {
+      console.log(this.unUsuario, " en put---enntrando en detalle componene, en unUsuario")
+      console.log(this.editUsuario, "en put---enntrando en detalle componene, en editUsuario")
+      this._usersService.updateUsuarioDos(this.editUsuario);
+      // .subscribe
+      // (Usuario => {
+      // replace the hero in the heroes list with update from server
+      // const ix = Usuario ? this.usuarios.findIndex(h => h.idu === Usuario.idu) : -1;
+      // console.log(Usuario, "11111111111111111en el for mirando Usuario")
+      // if (ix > -1) {
+      // this.usuarios[ix] = Usuario;
+      //   console.log(Usuario, "en el for mirando Usuario")
+      //   }
+      // });
+      this.editUsuario = undefined;
+    }
+  }
+  // onSubmitDos(myForm: NgForm) {
+  //   console.log("es el myForm",myForm, this.editUsuario.idu,this.editUsuario.nombreUsuario,"entradndo en onSubmit");
+  //   if (myForm.valid) {
+  //     this._usersService.updateUsuario(this.editUsuario)
+  //     console.log("enviando an service",this.editUsuario);
+  //   } else {
+  //     console.log("Error!")
+  //   };
+  //}
 
 }
-  
+// onSubmit(myForm: NgForm) {
+//   console.log("my formulario",myForm, "es el this de",this.modificandoUsuario,"entradndo en onSubmit");
+//   if (myForm.valid) {
+//     this._usersService.updateUsuario(this.modificandoUsuario).subscribe( newId=>{
+//       if(newId) this._routerDos.navigate(['/usuarios']);
+
+//     else console.log("Error!");
+
+//     });
+
+//   }
+// }
