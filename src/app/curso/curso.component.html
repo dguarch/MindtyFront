@@ -1,3 +1,24 @@
-<p>
-  curso works!
-</p>
+<div class="fondo">
+  <h2 class="titulo">Cursos</h2>
+  
+  <table class="tabla">
+    <tr>
+      <th>idCurso</th>
+      <th>CódigoCurso</th>
+      <th>Nombre Curso</th>
+      <th>Horas curso</th>
+      <th>Formador</th>
+
+    </tr>
+    <tr *ngFor="let unC of cursos ">
+      <td ><a [routerLink]="['/cursos/',unC.idCurso]">{{unC.idCurso}}</a></td>
+      <td ><a [routerLink]="['/cursos/',unC.idCurso,'modulos']">{{unC.codCurso}}</a></td>
+      <td >{{unC.nombreCurso}}</td>
+      <td >{{unC.horasCurso}}</td>
+      <td >{{unC.formador}}</td>
+    </tr>
+  </table>
+  <p>
+    <a class="enlace" [routerLink]="['/cursos/','new']">[+]Nuevo curso</a>
+  </p>
+</div>

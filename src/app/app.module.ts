@@ -21,7 +21,11 @@ import { UsuarionewComponent } from './usuario/usuarionew/usuarionew.component';
 import { UsuariodetalleComponent } from './usuario/usuariodetalle/usuariodetalle.component';
 import { LoginComponent } from './login/login.component';
 import {routingProv} from './routing';
-import { ModulosService } from './services/modulos.service';
+import { MatButtonModule, MatCheckboxModule, MatSelect, MatSortModule, MatTableModule, MatFormFieldModule, MatInputModule, MatRippleModule, MatListModule} from '@angular/material';
+import { UserserviceService } from './services/userservice.service';
+import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { MatRadioModule} from '@angular/material/radio';
+import { DataSource } from '@angular/cdk/table';
 
 @NgModule({
   declarations: [
@@ -41,16 +45,43 @@ import { ModulosService } from './services/modulos.service';
     UsuarioComponent,
     UsuarionewComponent,
     UsuariodetalleComponent,
-    LoginComponent
+    LoginComponent,
+   
   ],
   imports: [
     BrowserModule,
     FormsModule,
     routingProv,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatButtonModule, 
+    MatCheckboxModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatRippleModule,
+    MatListModule,
+    MatRadioModule,
+    MatSortModule,
+    MatTableModule,
+
+  ],
+
+  exports: [
+    MatButtonModule, 
+    MatCheckboxModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatRippleModule,
+    MatListModule,
+    MatRadioModule,
+    MatSortModule,
+    MatTableModule,
+    
+
+    
   ],
   providers: [
-    ModulosService
   ],
   bootstrap: [AppComponent]
 })
