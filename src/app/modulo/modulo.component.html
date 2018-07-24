@@ -1,0 +1,17 @@
+<div class="fondo">
+  <h2 class="titulo">Modulos</h2>
+  
+  <table class="tabla">
+    <tr>
+      <th>idModulo</th>
+      <th>NombreModulo</th>
+    </tr>
+    <tr *ngFor="let unM of modulos ">
+      <td >{{unM.idm}}</td>
+      <td ><a [routerLink]="['/cursos/',idCurso,'modulos',unM.idm]">{{unM.nombreModulo}}</a></td>
+    </tr>
+  </table>
+  <p>
+    <a class="enlace" [routerLink]="['/cursos/',idCurso,'modulos','new']">[+]Nuevo modulo</a>
+  </p>
+</div>
