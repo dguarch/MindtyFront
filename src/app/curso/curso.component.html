@@ -1,24 +1,34 @@
-<div class="fondo">
-  <h2 class="titulo">Cursos</h2>
-  
-  <table class="tabla">
-    <tr>
-      <th>idCurso</th>
-      <th>CódigoCurso</th>
-      <th>Nombre Curso</th>
-      <th>Horas curso</th>
-      <th>Formador</th>
-
-    </tr>
-    <tr *ngFor="let unC of cursos ">
-      <td ><a [routerLink]="['/cursos/',unC.idCurso]">{{unC.idCurso}}</a></td>
-      <td ><a [routerLink]="['/cursos/',unC.idCurso,'modulos']">{{unC.codCurso}}</a></td>
-      <td >{{unC.nombreCurso}}</td>
-      <td >{{unC.horasCurso}}</td>
-      <td >{{unC.formador}}</td>
-    </tr>
+<h2>Cursos</h2>
+<hr>
+<div>
+  <table class="table">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">CódigoCurso</th>
+        <th scope="col">Nombre Curso</th>
+        <th scope="col">Horas curso</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let unC of cursos ">
+        <td>
+          <a [routerLink]="['/cursos/',unC.idCurso]">{{unC.idCurso}}</a>
+        </td>
+        <td>
+          <a [routerLink]="['/cursos/',unC.idCurso,'modulos']">{{unC.codCurso}}</a>
+        </td>
+        <td>{{unC.nombreCurso}}</td>
+        <td>{{unC.horasCurso}}</td>
+      </tr>
+    </tbody>
   </table>
-  <p>
-    <a class="enlace" [routerLink]="['/cursos/','new']">[+]Nuevo curso</a>
-  </p>
+  <br>
+  <br>
+  <a [routerLink]="['/cursos/new']">
+    <button type="button" class="btn btn-primary btn-block btn-lg">
+      Añadir curso
+    </button>
+  </a>
 </div>
+<br>
